@@ -2,11 +2,12 @@ import { observer } from 'mobx-react-lite';
 import { useContext, useEffect, useMemo } from 'react';
 import { Context } from '..';
 import CSS from 'csstype';
+import { WINNER_COMPUTER, WINNER_HUMAN, WINNER_NO } from '../utils/consts';
 
 type PropsCell = {
     value: {
         elemArr: string,
-        index: number
+        index: number,
     }
 }
 
@@ -19,6 +20,7 @@ function Cell(props:  PropsCell) {
         const step: string = store.humanPlayX ? 'X'  : 'O' 
         store.setArrTable(step, index)
         store.setStepHuman(false)
+        store.setNewGame(false)
     }
 
     useEffect(() => {
@@ -28,7 +30,9 @@ function Cell(props:  PropsCell) {
         }
     }, [store.arrTable, store, store.stepHuman])
 
-    const styles: CSS.Properties = useMemo(() => ({pointerEvents: elemArr === '' ? 'auto' : 'none'}), [elemArr])
+    let styles: CSS.Properties = useMemo(() => ({
+        pointerEvents: (elemArr === '' && !store.winner) ? 'auto' : 'none' 
+    }), [elemArr, store.winner])
 
     useEffect(() => {
         checkWinner()
@@ -51,16 +55,16 @@ function Cell(props:  PropsCell) {
       
         winnerTable.forEach(item => {
             const searchWinner: string = item.reduce((accum, elem) => accum + store.arrTable[elem], '')
-            if(searchWinner === winnerHuman) store.setWinner('Вы победитель!')
-            if(searchWinner === winnerComputer) store.setWinner('Победил компьютер!')
+            if(searchWinner === winnerHuman) store.setWinner(WINNER_HUMAN)
+            if(searchWinner === winnerComputer) store.setWinner(WINNER_COMPUTER)
         })
       
         const quantityStep: number = store.arrTable.reduce((sum, elem) => elem !== '' ? sum + 1 : sum, 0)
-        if (quantityStep === 9) store.setWinner('Ничья!')
+        if (quantityStep === 9) store.setWinner(WINNER_NO)
     }
 
     return (
-        <button className="styleCell" onClick={HendlerCell} style={styles} >
+        <button className="style-Cell btn btn-light btn-lg border" onClick={HendlerCell} style={styles} >
             {elemArr}
         </button>
     );

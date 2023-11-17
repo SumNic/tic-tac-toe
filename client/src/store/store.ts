@@ -3,13 +3,18 @@ import ComputerService from '../services/ComputerService';
 import { ComputerStep } from '../models/ComputerStep';
 
 export default class Store {
+    newGame: boolean = true
     winner: string = ''
     humanPlayX: boolean = true
     arrTable: string[] = ['','', '', '', '', '', '', '', '' ]
-    stepHuman: boolean = true
+    stepHuman: boolean = true    
 
     constructor() {
         makeAutoObservable(this)
+    }
+
+    setNewGame(bool: boolean) {
+        this.newGame = bool
     }
 
     setWinner(str: string) {
