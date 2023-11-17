@@ -31,7 +31,8 @@ function Cell(props:  PropsCell) {
     }, [store.arrTable, store, store.stepHuman])
 
     let styles: CSS.Properties = useMemo(() => ({
-        pointerEvents: (elemArr === '' && !store.winner) ? 'auto' : 'none' 
+        pointerEvents: (elemArr === '' && !store.winner) ? 'auto' : 'none',
+        borderRadius: 0
     }), [elemArr, store.winner])
 
     useEffect(() => {
@@ -64,7 +65,7 @@ function Cell(props:  PropsCell) {
     }
 
     return (
-        <button className="style-Cell btn btn-light btn-lg border" onClick={HendlerCell} style={styles} >
+        <button className="btn btn-light btn-lg border" onClick={HendlerCell} style={styles} >
             {elemArr}
         </button>
     );

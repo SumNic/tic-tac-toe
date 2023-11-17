@@ -17,7 +17,7 @@ function App() {
       <div style={{width: 300}}>
           <h1 className="d-flex justify-content-center pt-4">TIC-TAC-TOE!</h1>
           <ButtonZero />
-          <div className="grid-Cell" >
+          <div className="grid-Cell d-grid justify-content-center" style={{height: 300}}>
               {list}
           </div>
           {store.winner && <AlertWinner value={store.winner} />}

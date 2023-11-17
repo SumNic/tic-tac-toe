@@ -41,7 +41,7 @@ function AlertWinner(propsWinner: PropsWinner) {
             <hr />
             <div className="d-flex justify-content-end">
                 <Button onClick={() => playNew()} variant={"outline-" + saccess} >
-                    Новая игра?
+                    Играть заново
                 </Button> 
             </div>
         </Alert>
